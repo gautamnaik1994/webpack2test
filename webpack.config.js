@@ -68,5 +68,6 @@ module.exports = {
         contentBase: path.join(__dirname, "public"),
         compress: true,
         port: 9000
-    }
+    },
+    devtool: process.env.NODE_ENV === 'production' ? undefined : 'eval-source-map'
 };
