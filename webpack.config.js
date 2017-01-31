@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
     context: path.resolve(__dirname, './app'),
     //can specify multiple entry file types  
@@ -29,11 +30,27 @@ module.exports = {
         new ExtractTextPlugin({
             filename: '[name].bundle.css',
             allChunks: true,
-        })
+        }),
         // new webpack.ProvidePlugin({
         //     $: 'jquery',
         //     jQuery: 'jquery'
         // })
+        //use plugin option here or in postcss config(recomended)
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                // postcss: [
+                //     require('autoprefixer')({
+                //         browsers: ['last 2 versions']
+                //     }),
+                // ]
+                sassLoader: {
+                    outputStyle: "expanded",
+                    includePaths: [
+                      
+                    ]
+                },
+            }
+        })
     ],
     resolve: {
         modules: [
@@ -44,19 +61,53 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.css$/,
-                use: [{
-                        loader: "style-loader"
-                    },
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true
-                        }
-                    }
-                ]
+                exclude: /node_modules/,
+                 use: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader!postcss-loader"
+                })
+                // use: [{
+                //         loader: "style-loader"
+                //     },
+                //     {
+                //         loader: "css-loader",
+                //         options: {
+                //             modules: true
+                //         }
+                //     },
+                //     {
+                //         loader: "postcss-loader"
+                //     }
+                // ]
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader!postcss-loader!sass-loader"
+                })
+                // use: [
+                //     {
+                //         loader: "style-loader"
+                //     },
+                //     {
+                //         loader: "css-loader",
+                //         options: {
+                //             modules: true
+                //         }
+                //     },
+                //     {
+                //         loader: "postcss-loader"
+                //     },
+                //     {
+                //         loader: "sass-loader"
+                //     },
+                // ]
             },
             {
                 test: /\.jsx$/,
+                exclude: /node_modules/,
                 loader: "babel-loader", // Do not use "use" here
                 options: {
                     presets: ['react', 'es2015']
