@@ -46,7 +46,7 @@ module.exports = {
                 sassLoader: {
                     outputStyle: "expanded",
                     includePaths: [
-                      
+
                     ]
                 },
             }
@@ -62,7 +62,7 @@ module.exports = {
         rules: [{
                 test: /\.css$/,
                 exclude: /node_modules/,
-                 use: ExtractTextPlugin.extract({
+                use: ExtractTextPlugin.extract({
                     fallbackLoader: "style-loader",
                     loader: "css-loader!postcss-loader"
                 })
@@ -106,11 +106,11 @@ module.exports = {
                 // ]
             },
             {
-                test: /\.jsx$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: "babel-loader", // Do not use "use" here
                 options: {
-                    presets: ['react', 'es2015']
+                    presets: ['react', 'es2015','stage-0']
                 }
             }
         ]

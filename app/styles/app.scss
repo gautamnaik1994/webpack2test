@@ -1,10 +1,10 @@
-body{
+body {
     display: flex;
-    .ff{
+    .ff {
         align-self: center;
     }
 }
 
 .position {
-	@util position(absolute, 10px 20px null 5px);
+    @util position(absolute, 10px 20px null 5px);
 }

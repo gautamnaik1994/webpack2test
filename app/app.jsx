@@ -1,8 +1,10 @@
-var React=require('react');
-var ReactDOM=require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-require('./styles/app.scss');
+import Test from './components/test.js';
+import './styles/app.scss';
+
 ReactDOM.render(
- <h1>Boilerplate App</h1>,
+ <Test count={88}/>,
   document.getElementById('app')
 );
