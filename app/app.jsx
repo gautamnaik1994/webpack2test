@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Test from './components/test.js';
+import Test from 'test';
+import Main from 'Main';
 import './styles/app.scss';
 
 ReactDOM.render(
- <Test count={88}/>,
+  <Main />,
+  
   document.getElementById('app')
 );

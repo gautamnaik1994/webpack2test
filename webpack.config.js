@@ -17,11 +17,16 @@ module.exports = {
     //     vendor: ['react', 'react-dom', 'rxjs'],
     //   },
     entry: {
+        
+        rhl: 'react-hot-loader/patch',
+        wds: 'webpack-dev-server/client?http://localhost:8080',
+        wdhos: 'webpack/hot/only-dev-server',
         app: './app.jsx',
     },
     output: {
         path: path.resolve(__dirname, './public'),
         filename: '[name].bundle.js',
+        publicPath: '/'
     },
     // externals: {
     //     jquery: 'jQuery'
@@ -31,6 +36,8 @@ module.exports = {
             filename: '[name].bundle.css',
             allChunks: true,
         }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
         // new webpack.ProvidePlugin({
         //     $: 'jquery',
         //     jQuery: 'jquery'
@@ -50,13 +57,14 @@ module.exports = {
                     ]
                 },
             }
-        })
+        }),
     ],
     resolve: {
         modules: [
-            path.join(__dirname, "./app"),
+            path.join(__dirname, "./app/components"),
             "node_modules"
-        ]
+        ],
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [{
@@ -108,17 +116,18 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: "babel-loader", // Do not use "use" here
-                options: {
-                    presets: ['react', 'es2015','stage-0']
-                }
+                loader: "babel-loader"
+                // options: {
+                //     presets: ['react', "es2015", 'stage-0']
+                   
+                // }
             }
         ]
     },
     devServer: {
         contentBase: path.join(__dirname, "public"),
+        hot: true,
         compress: true,
-        port: 9000
     },
     devtool: process.env.NODE_ENV === 'production' ? undefined : 'eval-source-map'
 };
