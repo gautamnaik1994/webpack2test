@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    context: path.resolve(__dirname, './app'),
+    context: path.resolve(__dirname, 'app'),
     //can specify multiple entry file types  
     //   entry: {
     //     home: './home.js',
@@ -16,16 +16,32 @@ module.exports = {
     //     index: './index.js',
     //     vendor: ['react', 'react-dom', 'rxjs'],
     //   },
-    entry: {
-        
-        rhl: 'react-hot-loader/patch',
-        wds: 'webpack-dev-server/client?http://localhost:8080',
-        wdhos: 'webpack/hot/only-dev-server',
-        app: './app.jsx',
-    },
+    // entry: {
+
+    //     rhl: 'react-hot-loader/patch',
+    //     wds: 'webpack-dev-server/client?http://localhost:8080',
+    //     wdhos: 'webpack/hot/only-dev-server',
+    //     app: './app.jsx',
+    // },
+
+    entry: [
+        'react-hot-loader/patch',
+        // activate HMR for React
+
+        'webpack-dev-server/client?http://localhost:8080',
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
+
+        'webpack/hot/only-dev-server',
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+
+        './app.js'
+        // the entry point of our app
+    ],
     output: {
-        path: path.resolve(__dirname, './public'),
-        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'public'),
+        filename: 'bundle.js',
         publicPath: '/'
     },
     // externals: {
@@ -60,10 +76,10 @@ module.exports = {
         }),
     ],
     resolve: {
-        modules: [
-            path.join(__dirname, "./app/components"),
-            "node_modules"
-        ],
+        // modules: [
+        //     path.join(__dirname, "./app/components"),
+        //     "node_modules"
+        // ],
         extensions: ['.js', '.jsx']
     },
     module: {
@@ -119,7 +135,7 @@ module.exports = {
                 loader: "babel-loader"
                 // options: {
                 //     presets: ['react', "es2015", 'stage-0']
-                   
+
                 // }
             }
         ]
