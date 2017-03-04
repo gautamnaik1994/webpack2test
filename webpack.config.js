@@ -24,24 +24,29 @@ module.exports = {
     //     app: './app.jsx',
     // },
 
-    entry: [
-        'react-hot-loader/patch',
-        // activate HMR for React
+    // entry: [
+    //     'react-hot-loader/patch',
+    //     // activate HMR for React
 
-        'webpack-dev-server/client?http://localhost:8080',
-        // bundle the client for webpack-dev-server
-        // and connect to the provided endpoint
+    //     'webpack-dev-server/client?http://localhost:8080',
+    //     // bundle the client for webpack-dev-server
+    //     // and connect to the provided endpoint
 
-        'webpack/hot/only-dev-server',
-        // bundle the client for hot reloading
-        // only- means to only hot reload for successful updates
+    //     'webpack/hot/only-dev-server',
+    //     // bundle the client for hot reloading
+    //     // only- means to only hot reload for successful updates
 
-        './app.js'
-        // the entry point of our app
-    ],
+    //     './app.js'
+
+    // ],
+    entry: {
+        app: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server', './app.js'],
+        vendor: ['react', 'react-dom'],
+    },
+
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         publicPath: '/'
     },
     // externals: {
@@ -142,8 +147,8 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "public"),
-        hot: true,
-        compress: true,
+        hot: true
+        //compress: true,
     },
     devtool: process.env.NODE_ENV === 'production' ? undefined : 'eval-source-map'
 };

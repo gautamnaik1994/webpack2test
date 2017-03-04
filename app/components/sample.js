@@ -5,6 +5,7 @@ class Sample extends Component {
         return (
             <div>
                 <input type="text" />
+                <input type="text" />
             </div>
         );
     }

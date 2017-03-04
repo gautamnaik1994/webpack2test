@@ -2,7 +2,7 @@ import React from 'react';
 import Sample from './sample';
 const Main = () => (
     <div>
-        <h2>Hello,Gautajghjd</h2>
+        <h2>Hello,tajghjd</h2>
     
         <Sample/>
       
